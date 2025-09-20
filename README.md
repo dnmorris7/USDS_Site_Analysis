@@ -2,7 +2,7 @@
 
 ## 🎯 Project Overview
 
-This project is a **USDS Take-Home Assessment** implementation for analyzing the Electronic Code of Federal Regulations (eCFR) website and data. The application provides comprehensive analysis capabilities for government website compliance and CFR data insights.
+This project is a **USDS Technical Assessment** implementation for analyzing the Electronic Code of Federal Regulations (eCFR) website and data. The application provides comprehensive analysis capabilities for government website compliance and CFR data insights.
 
 ## 🏗️ Architecture
 
