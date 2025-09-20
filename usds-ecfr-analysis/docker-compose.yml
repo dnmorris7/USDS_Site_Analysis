@@ -1,0 +1,129 @@
+version: '3.8'
+
+services:
+  # USDS eCFR Analysis Tool
+  usds-ecfr-analysis:
+    build: .
+    container_name: usds-ecfr-analyzer
+    ports:
+      - "3000:80"    # Frontend (Nginx)
+      - "8080:8080"  # Backend API (Spring Boot)
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+      - JAVA_OPTS=-Xmx512m -Xms256m
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost/api/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 60s
+    restart: unless-stopped
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.usds-ecfr.rule=Host(`ecfr-analysis.usds.local`)"
+      - "traefik.http.services.usds-ecfr.loadbalancer.server.port=80"
+    networks:
+      - usds-network
+
+  # PostgreSQL for production data persistence
+  usds-postgres:
+    image: postgres:15-alpine
+    container_name: usds-ecfr-db
+    environment:
+      POSTGRES_DB: ecfr_analysis
+      POSTGRES_USER: usds_user
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-secure_password_change_me}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./database/init.sql:/docker-entrypoint-initdb.d/init.sql:ro
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U usds_user -d ecfr_analysis"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+    networks:
+      - usds-network
+
+  # Redis for caching analysis results
+  usds-redis:
+    image: redis:7-alpine
+    container_name: usds-ecfr-cache
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    command: redis-server --appendonly yes --requirepass ${REDIS_PASSWORD:-redis_password_change_me}
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 3s
+      retries: 3
+    restart: unless-stopped
+    networks:
+      - usds-network
+
+  # Nginx reverse proxy for production
+  usds-nginx:
+    image: nginx:alpine
+    container_name: usds-ecfr-proxy
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./nginx/ssl:/etc/nginx/ssl:ro
+      - nginx_logs:/var/log/nginx
+    depends_on:
+      - usds-ecfr-analysis
+    restart: unless-stopped
+    networks:
+      - usds-network
+
+volumes:
+  postgres_data:
+    driver: local
+  redis_data:
+    driver: local
+  nginx_logs:
+    driver: local
+
+networks:
+  usds-network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.20.0.0/16
+
+# Override for development environment
+# Use: docker-compose -f docker-compose.yml -f docker-compose.dev.yml up
+---
+# Development override
+version: '3.8'
+
+services:
+  usds-ecfr-analysis:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    volumes:
+      - ./backend/src:/app/backend/src:ro
+      - ./frontend/src:/app/frontend/src:ro
+    environment:
+      - SPRING_PROFILES_ACTIVE=dev
+      - SPRING_DATASOURCE_URL=jdbc:h2:mem:testdb
+    ports:
+      - "4200:4200"  # Angular dev server
+      - "8080:8080"  # Spring Boot
+
+  # Remove production services for development
+  usds-postgres:
+    profiles: ["production"]
+  
+  usds-redis:
+    profiles: ["production"]
+    
+  usds-nginx:
+    profiles: ["production"]

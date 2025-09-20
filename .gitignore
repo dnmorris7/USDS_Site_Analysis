@@ -1,0 +1,145 @@
+# USDS eCFR Analysis Tool - .gitignore
+
+# USDS Assessment Documents (PRIVATE - DO NOT COMMIT)
+USDS Take-Home Assessment_Morris.pdf
+USDS Take-Home Assessment_Morris.docx
+**/USDS Take-Home Assessment*
+**/assessment*
+**/Assignment*
+
+# Java
+*.class
+*.jar
+*.war
+*.ear
+*.logs
+target/
+*.iml
+.idea/
+.settings/
+.project
+.classpath
+
+# Node.js
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+dist/
+.angular/
+.npm
+.yarn/
+
+# IDE
+.vscode/
+*.swp
+*.swo
+*~
+.eclipse/
+.metadata/
+
+# OS
+.DS_Store
+Thumbs.db
+*.tmp
+*.temp
+
+# Logs
+*.log
+logs/
+
+# Runtime data
+pids
+*.pid
+*.seed
+*.pid.lock
+
+# Build outputs
+build/
+out/
+*.tgz
+
+# Environment variables
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# H2 Database
+*.db
+*.mv.db
+*.trace.db
+
+# Spring Boot
+application-*.properties
+!application.properties
+!application-test.properties
+!application-prod.properties
+
+# Maven
+.mvn/wrapper/maven-wrapper.jar
+.mvn/wrapper/maven-wrapper.properties
+
+# Coverage reports
+coverage/
+*.lcov
+
+# Dependency directories
+jspm_packages/
+
+# Optional npm cache directory
+.npm
+
+# Optional eslint cache
+.eslintcache
+
+# Output of 'npm pack'
+*.tgz
+
+# Yarn Integrity file
+.yarn-integrity
+
+# dotenv environment variables file
+.env
+
+# parcel-bundler cache (https://parceljs.org/)
+.cache
+.parcel-cache
+
+# next.js build output
+.next
+
+# nuxt.js build output
+.nuxt
+
+# vuepress build output
+.vuepress/dist
+
+# Serverless directories
+.serverless
+
+# FuseBox cache
+.fusebox/
+
+# DynamoDB Local files
+.dynamodb/
+
+# Windows image file caches
+Thumbs.db
+ehthumbs.db
+
+# Folder config file
+Desktop.ini
+
+# Recycle Bin used on file shares
+$RECYCLE.BIN/
+
+# Windows Installer files
+*.cab
+*.msi
+*.msm
+*.msp
+
+# Windows shortcuts
+*.lnk
