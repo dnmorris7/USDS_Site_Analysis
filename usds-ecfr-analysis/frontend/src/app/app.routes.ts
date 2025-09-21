@@ -5,10 +5,12 @@ import { ResultsComponent } from './components/results/results.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { AgencyAnalysisComponent } from './components/agency-analysis/agency-analysis.component';
 import { RegulationViewerComponent } from './components/regulation-viewer/regulation-viewer.component';
+import { DetailedAnalysisComponent } from './components/detailed-analysis/detailed-analysis.component';
 
 export const routes: Routes = [
   { path: '', component: DashboardComponent },
   { path: 'dashboard', component: DashboardComponent },
+  { path: 'detailed-analysis/:titleNumber', component: DetailedAnalysisComponent },
   { path: 'agency-analysis', component: AgencyAnalysisComponent },
   { path: 'regulation-viewer', component: RegulationViewerComponent },
   { path: 'analysis', component: AnalysisComponent },

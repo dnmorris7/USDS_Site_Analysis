@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable, throwError } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 
 export interface CFROverview {
@@ -17,6 +17,9 @@ export interface CFRTitle {
   name: string;
   agency: string;
   partCount?: number;
+  wordCount?: number;
+  recentChanges?: number;
+  redundancyScore?: number;
 }
 
 export interface RegulationContent {
@@ -143,6 +146,70 @@ export class CFRAnalyticsService {
   }
 
   /**
+   * MVP ENDPOINTS - Integration with our custom MVP backend endpoints
+   */
+
+  /**
+   * Gets agency word count data for a CFR title
+   */
+  getAgencyWordCount(titleNumber: number): Observable<any> {
+    console.log(`🔍 Fetching agency word count for CFR title ${titleNumber}...`);
+    return this.http.get(`${this.apiUrl}/mvp/word-count/title/${titleNumber}`)
+      .pipe(
+        tap(data => console.log(`✅ Word count data loaded for CFR ${titleNumber}:`, data)),
+        catchError(this.handleError)
+      );
+  }
+
+  /**
+   * Gets historical changes for a CFR title
+   */
+  getHistoricalChanges(titleNumber: number): Observable<any> {
+    console.log(`🔍 Fetching historical changes for CFR title ${titleNumber}...`);
+    return this.http.get(`${this.apiUrl}/mvp/historical-changes/title/${titleNumber}`)
+      .pipe(
+        tap(data => console.log(`✅ Historical changes loaded for CFR ${titleNumber}:`, data)),
+        catchError(this.handleError)
+      );
+  }
+
+  /**
+   * Gets redundancy analysis for a CFR title
+   */
+  getRedundancyAnalysis(titleNumber: number): Observable<any> {
+    console.log(`🔍 Fetching redundancy analysis for CFR title ${titleNumber}...`);
+    return this.http.get(`${this.apiUrl}/mvp/redundancy/title/${titleNumber}`)
+      .pipe(
+        tap(data => console.log(`✅ Redundancy analysis loaded for CFR ${titleNumber}:`, data)),
+        catchError(this.handleError)
+      );
+  }
+
+  /**
+   * Gets conflict analysis for a CFR title
+   */
+  getConflictAnalysis(titleNumber: number): Observable<any> {
+    console.log(`🔍 Fetching conflict analysis for CFR title ${titleNumber}...`);
+    return this.http.get(`${this.apiUrl}/mvp/conflicts/title/${titleNumber}`)
+      .pipe(
+        tap(data => console.log(`✅ Conflict analysis loaded for CFR ${titleNumber}:`, data)),
+        catchError(this.handleError)
+      );
+  }
+
+  /**
+   * Gets checksum data for a CFR title
+   */
+  getChecksumData(titleNumber: number): Observable<any> {
+    console.log(`🔍 Fetching checksum data for CFR title ${titleNumber}...`);
+    return this.http.get(`${this.apiUrl}/mvp/checksums/title/${titleNumber}`)
+      .pipe(
+        tap(data => console.log(`✅ Checksum data loaded for CFR ${titleNumber}:`, data)),
+        catchError(this.handleError)
+      );
+  }
+
+  /**
    * Error handler for HTTP requests
    */
   private handleError = (error: any): Observable<never> => {
@@ -164,6 +231,7 @@ export class CFRAnalyticsService {
       url: error.url
     });
     
-    throw new Error(errorMessage);
+    // Return a proper observable error using throwError
+    return throwError(() => new Error(errorMessage));
   };
 }
