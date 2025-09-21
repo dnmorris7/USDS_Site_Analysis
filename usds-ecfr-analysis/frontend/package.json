@@ -1,7 +1,7 @@
 {
-  "name": "usds-ecfr-analysis-frontend",
+  "name": "federal-regulation-analytics-frontend",
   "version": "1.0.0",
-  "description": "USDS eCFR Site Analysis Frontend - Angular 17 application",
+  "description": "Federal Regulation Analytics Platform - Angular 17 frontend for analyzing 200k+ pages of federal regulations to support deregulation decision-making",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",

@@ -19,21 +19,25 @@ import { CommonModule } from '@angular/common';
   template: `
     <mat-toolbar color="primary" class="app-header">
       <span class="app-title">
-        <mat-icon class="app-icon">analytics</mat-icon>
-        USDS eCFR Site Analysis
+        <mat-icon class="app-icon">gavel</mat-icon>
+        Federal Regulation Analytics Platform
       </span>
       <span class="spacer"></span>
-      <button mat-button routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
-        <mat-icon>home</mat-icon>
-        Home
+      <button mat-button routerLink="/dashboard" routerLinkActive="active">
+        <mat-icon>dashboard</mat-icon>
+        Dashboard
       </button>
-      <button mat-button routerLink="/analysis" routerLinkActive="active">
-        <mat-icon>search</mat-icon>
-        Analysis
+      <button mat-button routerLink="/agency-analysis" routerLinkActive="active">
+        <mat-icon>business</mat-icon>
+        Agency Analysis
       </button>
-      <button mat-button routerLink="/results" routerLinkActive="active">
-        <mat-icon>assessment</mat-icon>
-        Results
+      <button mat-button routerLink="/regulation-viewer" routerLinkActive="active">
+        <mat-icon>description</mat-icon>
+        Regulation Viewer
+      </button>
+      <button mat-button routerLink="/home" routerLinkActive="active" class="bonus-feature">
+        <mat-icon>web</mat-icon>
+        Website Analysis
       </button>
     </mat-toolbar>
     
@@ -42,7 +46,7 @@ import { CommonModule } from '@angular/common';
     </main>
     
     <footer class="app-footer">
-      <p>&copy; 2025 U.S. Digital Service - eCFR Site Analysis Tool</p>
+      <p>&copy; 2025 U.S. Digital Service - Federal Regulation Analytics for Deregulation Decision-Making</p>
     </footer>
   `,
   styles: [`
@@ -93,8 +97,19 @@ import { CommonModule } from '@angular/common';
     button.mat-button.active {
       background-color: rgba(255, 255, 255, 0.1);
     }
+
+    .bonus-feature {
+      border-left: 1px solid rgba(255, 255, 255, 0.3);
+      margin-left: 16px !important;
+      padding-left: 16px;
+      opacity: 0.8;
+    }
+
+    .bonus-feature:hover {
+      opacity: 1;
+    }
   `]
 })
 export class AppComponent {
-  title = 'USDS eCFR Site Analysis';
+  title = 'Federal Regulation Analytics Platform';
 }

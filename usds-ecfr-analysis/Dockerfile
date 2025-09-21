@@ -97,8 +97,11 @@ HEALTHCHECK --interval=30s --timeout=3s --start-period=60s --retries=3 \
 
 # Labels for USDS compliance
 LABEL maintainer="USDS Assessment Team"
-LABEL description="eCFR Site Analysis Tool - Government Website Accessibility and Compliance Analyzer"
+LABEL description="Federal Regulation Analytics Platform - Deregulation Decision Support Tool"
+LABEL purpose="Analyze 200k+ pages of federal regulations for deregulation insights"
 LABEL version="1.0.0"
 LABEL government.usds.assessment="true"
+LABEL government.focus="deregulation-analysis"
+LABEL government.scope="cross-agency-regulatory-burden"
 LABEL government.compliance.section508="true"
 LABEL government.compliance.wcag="2.1-AA"

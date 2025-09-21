@@ -1,29 +1,47 @@
-# eCFR Site Analysis Tool
+# Federal Regulation Analytics Platform
 
-A comprehensive analysis tool for the Electronic Code of Federal Regulations (eCFR) website, built as part of the USDS Take-Home Assessment. This application evaluates government websites for accessibility, performance, usability, and compliance with federal standards.
+A comprehensive platform for analyzing 200,000+ pages of federal regulations to support data-driven deregulation decision-making. This application downloads, stores, and analyzes the complete Code of Federal Regulations (CFR) from the official eCFR.gov API to identify opportunities for regulatory burden reduction.
+
+## USDS Take-Home Assessment Implementation
+
+This solution addresses the core requirements:
+
+### ✅ Primary Requirements Met
+- **CFR Data Download**: Automated download of all CFR titles and parts from eCFR.gov API
+- **Server-Side Storage**: H2 database storing regulation content, metadata, and analytics
+- **Agency Analysis**: Word counts, regulation complexity scores, and deregulation metrics by agency
+- **Historical Tracking**: Change detection and version history for regulations
+- **Checksums**: Content integrity verification for downloaded regulations
+- **Custom Metrics**: Regulation complexity scoring, agency efficiency ratings, deregulation opportunity identification
 
 ## Architecture
 
-- **Backend**: Spring Boot 3.2.0 with Java 17
+- **Backend**: Spring Boot 3.2.0 with Java 21
 - **Frontend**: Angular 17 with Material Design
-- **Database**: H2 (development), PostgreSQL (production ready)
-- **Analysis**: JSoup for HTML parsing and comprehensive site metrics
+- **Database**: H2 database for regulation content storage
+- **Integration**: eCFR.gov API for federal regulation data
+- **Analytics**: Custom deregulation metrics and complexity scoring
 
 ## Features
 
-### Analysis Capabilities
-- **Accessibility**: WCAG 2.1 compliance, Section 508 evaluation, alt text validation
-- **Performance**: Load time metrics, resource optimization analysis
-- **Usability**: Navigation assessment, search functionality evaluation
-- **Government Compliance**: Section 508, FOIA compliance, privacy policy checks
-- **Technical Analysis**: Security headers, HTTPS validation, technology detection
+### Federal Regulation Analytics
+- **CFR Data Processing**: Download and analyze 200k+ pages of federal regulations
+- **Agency Analysis**: Regulatory burden assessment, budget-to-regulation ratios
+- **Deregulation Insights**: Complexity scoring, efficiency ratings, reduction opportunities
+- **Historical Tracking**: Change detection, version history, frequency analysis
+- **Content Analysis**: Word counts, cross-references, regulatory impact assessment
 
-### User Interface
-- Modern Material Design interface
-- Real-time analysis progress tracking
-- Comprehensive results visualization with charts and metrics
-- Mobile-responsive design
-- Government-compliant color schemes and accessibility features
+### Interactive Platform
+- Modern Material Design interface with federal regulation focus
+- Real-time analytics dashboard with key deregulation metrics
+- Agency comparison and priority ranking tools
+- Regulation content viewer with detailed analysis
+- Data export capabilities for decision-making
+
+### Bonus: Website Analysis Tool
+- Original accessibility and performance analysis capabilities
+- Retained as bonus feature for additional website evaluation
+- WCAG compliance, performance metrics, SEO analysis
 
 ## Prerequisites
 
